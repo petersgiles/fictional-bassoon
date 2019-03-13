@@ -2,5 +2,162 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "df-sharepoint-lib": {
+      "root": "projects/df-sharepoint-lib",
+      "sourceRoot": "projects/df-sharepoint-lib/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/df-sharepoint-lib/tsconfig.lib.json",
+            "project": "projects/df-sharepoint-lib/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/df-sharepoint-lib/tsconfig.lib.json",
+              "projects/df-sharepoint-lib/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "df-sharepoint-tester": {
+      "root": "projects/df-sharepoint-tester/",
+      "sourceRoot": "projects/df-sharepoint-tester/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/df-sharepoint-tester",
+            "index": "projects/df-sharepoint-tester/src/index.html",
+            "main": "projects/df-sharepoint-tester/src/main.ts",
+            "polyfills": "projects/df-sharepoint-tester/src/polyfills.ts",
+            "tsConfig": "projects/df-sharepoint-tester/tsconfig.app.json",
+            "assets": [
+              "projects/df-sharepoint-tester/src/favicon.ico",
+              "projects/df-sharepoint-tester/src/assets"
+            ],
+            "styles": [
+              "projects/df-sharepoint-tester/src/styles.css"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/df-sharepoint-tester/src/environments/environment.ts",
+                  "with": "projects/df-sharepoint-tester/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "df-sharepoint-tester:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "df-sharepoint-tester:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "df-sharepoint-tester:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/df-sharepoint-tester/src/test.ts",
+            "polyfills": "projects/df-sharepoint-tester/src/polyfills.ts",
+            "tsConfig": "projects/df-sharepoint-tester/tsconfig.spec.json",
+            "karmaConfig": "projects/df-sharepoint-tester/karma.conf.js",
+            "styles": [
+              "projects/df-sharepoint-tester/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/df-sharepoint-tester/src/favicon.ico",
+              "projects/df-sharepoint-tester/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/df-sharepoint-tester/tsconfig.app.json",
+              "projects/df-sharepoint-tester/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "df-sharepoint-tester-e2e": {
+      "root": "projects/df-sharepoint-tester-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/df-sharepoint-tester-e2e/protractor.conf.js",
+            "devServerTarget": "df-sharepoint-tester:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "df-sharepoint-tester:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/df-sharepoint-tester-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "df-sharepoint-lib"
 }
