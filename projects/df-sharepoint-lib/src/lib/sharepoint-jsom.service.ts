@@ -73,9 +73,6 @@ export class SharepointJsomService {
       systemUserKey: _spPageContextInfo.systemUserKey
     }
 
-         // tslint:disable-next-line:no-console
-         console.log('cheese')
-
     return executeQueryAsObservable(context)
       .pipe(
         concatMap(_userresponse => {
@@ -630,7 +627,7 @@ export interface SPAppUserProfile {
   name: string
   roles?: any,
   email?: string
-  background?: string
-  displayType?: string
-  size?: number
+  userId?: any,
+  isSiteAdmin?: any,
+  systemUserKey?: any
 }
