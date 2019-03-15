@@ -1,6 +1,6 @@
 {
   "name": "@df/sharepoint",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publishConfig": {
     "registry": "http://nexus.cloud9.cabnet/repository/npm-digitalfirst/"
   },
