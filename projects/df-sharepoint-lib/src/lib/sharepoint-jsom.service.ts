@@ -59,6 +59,18 @@ export class SharepointJsomService {
       )
   }
 
+  public getWebId(): Observable<string> {
+
+    const context = SP.ClientContext.get_current()
+    const web = context.get_web()
+    context.load(web)
+
+    return executeQueryAsObservable(context)
+      .pipe(
+        concatMap(_ => web.get_id().toString())
+      )
+  }
+
   getCurrentUser(): Observable<SPAppUserProfile> {
 
     const context = SP.ClientContext.get_current()
