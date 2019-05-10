@@ -67,7 +67,19 @@ export class SharepointJsomService {
 
     return executeQueryAsObservable(context)
       .pipe(
-        concatMap(_ => web.get_id().toString())
+        map(_ => web.get_id().toString())
+      )
+  }
+
+  public getSiteId(): Observable<string> {
+
+    const context = SP.ClientContext.get_current()
+    const site = context.get_site()
+    context.load(site)
+
+    return executeQueryAsObservable(context)
+      .pipe(
+        map(_ => site.get_id().toString())
       )
   }
 
